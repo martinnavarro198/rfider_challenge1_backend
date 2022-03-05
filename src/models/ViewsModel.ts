@@ -5,11 +5,13 @@ export interface ItemModel {
 }
 
 export const increaseViews = (item_id: string) => {
-    return `UPDATE item_views SET views = views + 1 WHERE item_id = '${item_id}'`
+    const today = new Date().toISOString()
+    return `UPDATE item_views SET views = views + 1, last_view_date = '${today}' WHERE item_id = '${item_id}'`
 }
 
 export const resetViews = (item_id: string) => {
-    return `UPDATE item_views SET views = 0 WHERE item_id = '${item_id}'`
+    const today = new Date().toISOString()
+    return `UPDATE item_views SET views = 1, last_view_date = '${today}' WHERE item_id = '${item_id}'`
 }
 
 export const getItemByStringId = (item_id: string) => {

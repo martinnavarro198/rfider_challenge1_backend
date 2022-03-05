@@ -11,10 +11,10 @@ export default class ItemsService {
 
     static async increaseView(itemId: string) {
         const items = await DatabaseService.get<ItemModel>(itemId)
-        const date = moment(items[0].last_view_date);
-        const today = moment()
-        const diffDays = today.diff(date, 'days')
-        if (diffDays > 0) {
+        const dateDay = moment(items[0].last_view_date).format('D');
+        const todayDay = moment().format('D')
+    
+        if (dateDay !== todayDay) {
             await DatabaseService.query<string>(itemId, resetViews)
         } else {
             await DatabaseService.query<string>(itemId, increaseViews)
